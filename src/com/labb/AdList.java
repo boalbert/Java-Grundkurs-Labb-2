@@ -3,6 +3,8 @@
 package com.labb;
 import java.util.ArrayList;
 
+
+    // TODO Göra denna abstract och ta bort metoder, lägga dom direkt i advertisement
 public class AdList {
     private ArrayList<BookAd> BookAds;
     //TODO Ta bort denna
