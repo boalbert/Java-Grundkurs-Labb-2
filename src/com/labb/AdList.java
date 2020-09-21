@@ -4,22 +4,29 @@ package com.labb;
 import java.util.ArrayList;
 
 public class AdList {
-
     private ArrayList<BookAd> BookAds;
+    //TODO Ta bort denna
     private String theBookList;
 
     public AdList() {
         this.BookAds = new ArrayList<>();
     }
-
-    public boolean addNewBook(BookAd addNewBook) {
+    //TODO Lägg till kontroll om annons redan finns
+    // if(findBook(book.getAdId()) >= 0)
+    // "Bok redan sparad", return false;
+    // Se exempel i Jerry / Udemy kurs
+    // Ha med denna kontroll på adID?
+    public void newBookAd(BookAd addNewBook) {
         BookAds.add(addNewBook);
-        return true;
     }
 
+
+    // Varför används .this här?
+    // Behövs ej, båda funkar och är lika rätt
+    // this. förtydligar att det är en instansvariabel
     public void printBookAds() {
         System.out.println("Showing book ads (" + BookAds.size() + "):");
-
+    // Todo Läs på om for each loop så jag kan förklara hur det funkar
         for (BookAd adBookSub : this.BookAds) {
             System.out.println("------");
             System.out.println(
@@ -69,14 +76,14 @@ public class AdList {
         return this.BookAds.indexOf(bookAdId);
     }
 
-    // Returnerar true eller false om vi hittar boken i index
+    // Returnerar true objektet (om det existerar)
     // Används för metoder:
     // - Main -> removeBookAd()
     // - Main -> searchBookAd()
     public BookAd queryBookAd(int bookAdId) {
         int position = findBookAd(bookAdId);
         if(position >= 0) {
-            return this.BookAds.get(position);
+            return this.BookAds.get(position); // returnerar objektet på "position"
         }
         return null;
     }
