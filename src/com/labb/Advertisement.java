@@ -1,5 +1,5 @@
 // Model
-
+// Comment for github
 package com.labb;
 
 public class Advertisement {

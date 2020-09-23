@@ -1,5 +1,5 @@
 // Interface
-
+// Git comment before github
 package com.labb;
 
 import java.util.Scanner;
