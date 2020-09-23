@@ -22,7 +22,6 @@ public class AdList {
         BookAds.add(addNewBook);
     }
 
-
     // Varför används .this här?
     // Behövs ej, båda funkar och är lika rätt
     // this. förtydligar att det är en instansvariabel
