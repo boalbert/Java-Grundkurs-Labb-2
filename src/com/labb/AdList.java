@@ -1,43 +1,65 @@
 // Controller
-// Comment for github
+
 package com.labb;
+
 import java.util.ArrayList;
 
-
-    // TODO Göra denna abstract och ta bort metoder, lägga dom direkt i advertisement
 public class AdList {
     private ArrayList<BookAd> BookAds;
-    //TODO Ta bort denna
-    private String theBookList;
 
     public AdList() {
         this.BookAds = new ArrayList<>();
     }
-    //TODO Lägg till kontroll om annons redan finns
-    // if(findBook(book.getAdId()) >= 0)
-    // "Bok redan sparad", return false;
-    // Se exempel i Jerry / Udemy kurs
-    // Ha med denna kontroll på adID?
+
     public void newBookAd(BookAd addNewBook) {
         BookAds.add(addNewBook);
     }
 
-    // Varför används .this här?
-    // Behövs ej, båda funkar och är lika rätt
-    // this. förtydligar att det är en instansvariabel
-    public void printBookAds() {
-        System.out.println("Showing book ads (" + BookAds.size() + "):");
-    // Todo Läs på om for each loop så jag kan förklara hur det funkar
-        for (BookAd adBookSub : this.BookAds) {
+    public void printAllBookAds() {
+        System.out.println("Showing all book ads (" + BookAds.size() + "):");
+
+        for (BookAd BookAds : this.BookAds) {
             System.out.println("------");
-            System.out.println(
-                    "\t" + adBookSub.getNameOfAd() + "\t" +
-                            "\nID# " + adBookSub.getAdId() +
-                            "\nSeller: " + adBookSub.getNameOfSeller() +
-                            "\nTitle: " + adBookSub.getTitleOfBook() +
-                            "\nAuthor: " + adBookSub.getAuthorOfBook() +
-                            "\nGenre: " + adBookSub.getGenreOfBook() +
-                            "\nPrice: " + adBookSub.getPrice() + " SEK");
+            System.out.println("\t" + BookAds.getNameOfAd() + "\t");
+            if (BookAds.isSold()) {
+                System.out.println("\t - SOLD - \t");
+            }
+            System.out.print(
+                    "ID# " + BookAds.getAdId() +
+                            "\nSeller: " + BookAds.getNameOfSeller() +
+                            "\nTitle: " + BookAds.getTitleOfBook() +
+                            "\nAuthor: " + BookAds.getAuthorOfBook() +
+                            "\nGenre: " + BookAds.getGenreOfBook() +
+                            "\nPrice: " + BookAds.getPrice() + " SEK\n");
+
+        }
+    }
+
+    public void printSoldBookAds() {
+        System.out.print("Showing sold book ads (");
+        int counter = 0;
+        for (BookAd bookAd : BookAds) {
+            if (bookAd.isSold()) {
+                counter++;
+            }
+        }
+        System.out.print(counter + "): \n");
+
+        for (BookAd soldBooks : this.BookAds) {
+
+            if (soldBooks.isSold()) {
+                System.out.println("------");
+                System.out.println(
+                        "\t" + soldBooks.getNameOfAd() + "\t" +
+                                "\n\t - SOLD - \t" +
+                                "\nID# " + soldBooks.getAdId() +
+                                "\nSeller: " + soldBooks.getNameOfSeller() +
+                                "\nTitle: " + soldBooks.getTitleOfBook() +
+                                "\nAuthor: " + soldBooks.getAuthorOfBook() +
+                                "\nGenre: " + soldBooks.getGenreOfBook() +
+                                "\nPrice: " + soldBooks.getPrice() + " SEK\n");
+            }
+
         }
     }
 
@@ -47,7 +69,7 @@ public class AdList {
     // Main -> removeBookAd()
     public boolean removeBookAd(BookAd bookAd) {
         int foundBookId = findBookAd(bookAd);
-        if(foundBookId < 0) {
+        if (foundBookId < 0) {
             System.out.println(bookAd.getAdId() + " not found.");
             return false;
         }
@@ -83,10 +105,24 @@ public class AdList {
     // - Main -> searchBookAd()
     public BookAd queryBookAd(int bookAdId) {
         int position = findBookAd(bookAdId);
-        if(position >= 0) {
+        if (position >= 0) {
             return this.BookAds.get(position); // returnerar objektet på "position"
         }
         return null;
     }
 
+    public int generateId() {
+
+        int adId = (int) (1 + Math.random() * 9999);
+
+        for(BookAd bookId : this.BookAds) {
+            if(bookId.getAdId() == adId) {
+                generateId();
+            }
+        }
+        return adId;
+    }
+
 }
+
+

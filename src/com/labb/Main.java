@@ -31,27 +31,29 @@ public class Main {
                     newBookAd();
                     break;
                 case 2:
-                    adBooks.printBookAds();
+                    adBooks.printAllBookAds();
                     break;
                 case 3:
-                    removeBookAd();
+                    adBooks.printSoldBookAds();
                     break;
                 case 4:
-                    searchBookAd();
+                    removeBookAd();
                     break;
                 case 5:
-                    updatePriceBookAd();
+                    searchBookAd();
                     break;
                 case 6:
-                    bookSold();
+                    updatePriceBookAd();
                     break;
                 case 7:
+                    bookSold();
+                    break;
+                case 8:
                     quit = true;
                     System.out.println("Exiting program...");
                     break;
             }
         }
-
 
 
     }
@@ -60,17 +62,18 @@ public class Main {
         System.out.println("\t 0 - Show instructions");
         System.out.println("\t 1 - Post book ad");
         System.out.println("\t 2 - Show book ad(s)");
-        System.out.println("\t 3 - Remove book ad");
-        System.out.println("\t 4 - Search for book ad");
-        System.out.println("\t 5 - Update price for book ad");
-        System.out.println("\t 6 - Mark book as sold");
-        System.out.println("\t 7 - Exit program");
+        System.out.println("\t 3 - Show sold book ad(s)");
+        System.out.println("\t 4 - Remove book ad");
+        System.out.println("\t 5 - Search for book ad");
+        System.out.println("\t 6 - Update price for book ad");
+        System.out.println("\t 7 - Mark book as sold");
+        System.out.println("\t 8 - Exit program");
     }
 
 
     // TODO Byt namn på variabler i denna metod till inputNameofAd, inputNameOfSeller... etc
     private static void newBookAd() {
-        int adId = (int) (1 + Math.random() * 4000);
+        int adId = adBooks.generateId();
         System.out.print("Enter a (short) name for your ad: ");
         String inputNameOfAd = sc.nextLine().toUpperCase();
         System.out.print("Enter name of seller: ");
@@ -88,7 +91,7 @@ public class Main {
         BookAd newAdbook = new BookAd(inputNameOfSeller, inputNameOfAd, inputBookPrice, adId, inputAuthorBook, inputBookTitle, inputBookGenre);
 
         adBooks.newBookAd(newAdbook);
-        System.out.println("\nNew book ad posted (ID# " + adId +").");
+        System.out.println("\nNew book ad posted (ID# " + adId + ").");
     }
 
     public static void removeBookAd() {
@@ -100,7 +103,7 @@ public class Main {
             return;
         }
 
-        if(adBooks.removeBookAd(existingBookAd)) {
+        if (adBooks.removeBookAd(existingBookAd)) {
             System.out.println("Book ad has been removed!");
         } else {
             System.out.println("Unable to remove book ad.");
@@ -135,9 +138,9 @@ public class Main {
             return;
         }
         System.out.println(
-        "\nBook title: " + existingBookAd.getTitleOfBook() +
-                " (" + existingBookAd.getAuthorOfBook() + ")" +
-                "\nCurrent price: " + existingBookAd.getPrice() + " SEK");
+                "\nBook title: " + existingBookAd.getTitleOfBook() +
+                        " (" + existingBookAd.getAuthorOfBook() + ")" +
+                        "\nCurrent price: " + existingBookAd.getPrice() + " SEK");
 
         System.out.print("Enter new price: ");
         double newBookPrice = sc.nextInt();
@@ -145,19 +148,19 @@ public class Main {
         System.out.println("Price for ID# " + existingBookAd.getAdId() + " updated!");
     }
 
+
     public static void bookSold() {
         System.out.print("Enter book ID#: ");
         int inputBookId = sc.nextInt();
+
         BookAd existingBookAd = adBooks.queryBookAd(inputBookId);
+
         if (existingBookAd == null) {
             System.out.println("Unable to find book ad.");
-            return;
+        } else {
+            existingBookAd.setSold(true);
+            System.out.println("ID#: " + existingBookAd.getAdId() + " marked as sold.");
         }
-
-        String oldTitle = existingBookAd.getNameOfAd();
-        existingBookAd.setNameOfAd("\t - SOLD - \n\t" + oldTitle);
     }
-}
 
-//TODO Lägg till instansvariabel för datum när vi skapar annons
-// "Ad posted 2020-09-17" - kolla upp hur date-funktion fungerar
+}
