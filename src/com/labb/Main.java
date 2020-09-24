@@ -1,5 +1,3 @@
-// Interface
-// Git comment before github
 package com.labb;
 
 import java.util.Scanner;
@@ -54,8 +52,6 @@ public class Main {
                     break;
             }
         }
-
-
     }
 
     private static void printInstructions() {
@@ -70,8 +66,6 @@ public class Main {
         System.out.println("\t 8 - Exit program");
     }
 
-
-    // TODO Byt namn på variabler i denna metod till inputNameofAd, inputNameOfSeller... etc
     private static void newBookAd() {
         int adId = adBooks.generateId();
         System.out.print("Enter a (short) name for your ad: ");
@@ -129,6 +123,7 @@ public class Main {
                 "\nPrice: " + existingBookAd.getPrice() + " SEK");
     }
 
+    // Hämtar aktuellt pris och ber användaren att sätta nytt via getPrice().
     public static void updatePriceBookAd() {
         System.out.print("Enter book ID#: ");
         int inputBookId = sc.nextInt();
@@ -148,7 +143,8 @@ public class Main {
         System.out.println("Price for ID# " + existingBookAd.getAdId() + " updated!");
     }
 
-
+    // Användare matar in adID som man vill markera såld
+    // Om adID finns så sätter den boolean sold till true
     public static void bookSold() {
         System.out.print("Enter book ID#: ");
         int inputBookId = sc.nextInt();

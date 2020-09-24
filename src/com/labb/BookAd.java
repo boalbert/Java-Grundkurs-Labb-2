@@ -1,4 +1,3 @@
-// Model
 package com.labb;
 
 public class BookAd extends Advertisement {

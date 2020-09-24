@@ -1,5 +1,3 @@
-// Model
-
 package com.labb;
 
 public class Advertisement {
@@ -17,7 +15,6 @@ public class Advertisement {
         this.adId = adId;
     }
 
-    // Setter används när vi kör metod för att justera / uppdatera pris på bok
     public void setPrice(double price) {
         this.price = price;
     }

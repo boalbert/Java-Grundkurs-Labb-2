@@ -1,5 +1,3 @@
-// Controller
-
 package com.labb;
 
 import java.util.ArrayList;
@@ -35,6 +33,7 @@ public class AdList {
         }
     }
 
+    // Skriver ut endast böcker som är isSold()
     public void printSoldBookAds() {
         System.out.print("Showing sold book ads (");
         int counter = 0;
@@ -63,10 +62,19 @@ public class AdList {
         }
     }
 
-    // Returnerar false om findBookAd() inte hittar boken
-    // Tar bort bok och returnerar true om bok hittas
-    // Används för metod:
-    // Main -> removeBookAd()
+    // Genererar int mellan 1 - 9999, om nummer redan existerar körs metod igen för att generera nytt adID
+    public int generateId() {
+
+        int adId = (int) (1 + Math.random() * 9999);
+
+        for(BookAd bookId : this.BookAds) {
+            if(bookId.getAdId() == adId) {
+                generateId();
+            }
+        }
+        return adId;
+    }
+
     public boolean removeBookAd(BookAd bookAd) {
         int foundBookId = findBookAd(bookAd);
         if (foundBookId < 0) {
@@ -77,10 +85,6 @@ public class AdList {
         return true;
     }
 
-    // Söker efter ID# för en annons
-    // Returnerar villken position den finns på
-    // Används för metoder:
-    //  - queryBookAd()
     private int findBookAd(int bookAdId) {
         for (int i = 0; i < this.BookAds.size(); i++) {
             BookAd bookAd = this.BookAds.get(i);
@@ -92,35 +96,16 @@ public class AdList {
         return -1;
     }
 
-    // Returnerar position av en Bok via ID#
-    // Används för metoder:
-    //  -removeBookAd()
     private int findBookAd(BookAd bookAdId) {
         return this.BookAds.indexOf(bookAdId);
     }
 
-    // Returnerar true objektet (om det existerar)
-    // Används för metoder:
-    // - Main -> removeBookAd()
-    // - Main -> searchBookAd()
     public BookAd queryBookAd(int bookAdId) {
         int position = findBookAd(bookAdId);
         if (position >= 0) {
             return this.BookAds.get(position); // returnerar objektet på "position"
         }
         return null;
-    }
-
-    public int generateId() {
-
-        int adId = (int) (1 + Math.random() * 9999);
-
-        for(BookAd bookId : this.BookAds) {
-            if(bookId.getAdId() == adId) {
-                generateId();
-            }
-        }
-        return adId;
     }
 
 }
