@@ -1,5 +1,6 @@
 // Model
 // Comment for github
+// Another comment for github
 package com.labb;
 
 public class BookAd extends Advertisement {
